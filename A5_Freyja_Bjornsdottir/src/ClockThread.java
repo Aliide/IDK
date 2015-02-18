@@ -4,7 +4,7 @@ public class ClockThread {
 	
 private ClockInterface clockInterface;
 
-public ClockThread(clockInterFace){
+public ClockThread(ClockInterface clockInterFace){
 	this.clockInterface = clockInterface;
 }
 public void run(){

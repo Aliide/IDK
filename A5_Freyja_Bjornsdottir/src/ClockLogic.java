@@ -3,15 +3,16 @@ import java.util.Calendar;
 public class ClockLogic extends ClockInterface {
 
 
-	private DigitalClockGUI clockGUI;
-	private int DigitalClockGUI;
+	private DigitalClockGUI digitalClockGUI;
+	private int clockGUI;
 	private int alarmHour;
 	private int alarmMinute;
 	private int clockIn;
 	
 	
-public ClockLogic(clockIn, DigitalClockGUI){
-	this.DigitalClockGUI = DigitalClockGUI;
+	// Don't mix instance variables with classes! :)
+public ClockLogic(int clockIn, DigitalClockGUI digitalClockGUI){
+	this.digitalClockGUI = digitalClockGUI;
 	this.clockIn = clockIn;
 	
 }
