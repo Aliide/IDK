@@ -1,0 +1,6 @@
+1.Den går från Malmö  till Lund.
+2.Man kan lägga till ”= 5 ” i slutet på sin Querystring.
+3.<Journeys> är en samling av alla möjliga resor i XMLen. 
+<Journey> är en specifik resa. <RouteLinks> Är en behållare för samtliga rutter angivna och <RouteLink> är den aktuella rutten/resan. 
+4. Under taggen <NoOfChanges>0</NoOfChanges> kan man se antal byten. <Journey> är huvudklassen. 
+5. <DepWalkDist>0</DepWalkDist> finns ej med i den nedladdade APIn.
