@@ -18,13 +18,13 @@ import se.mah.k3lara.skaneAPI.model.Station;
 
 public class Parser {
 	  /**
-  	 * Calls Skånetrafiken API and searches for stations containing a String
+  	 * Calls SkÃ¥netrafiken API and searches for stations containing a String
   	 * Use this Url to test from a browser:
-  	 * http://www.labs.skanetrafiken.se/v2.2/querystation.asp?inpPointfr=malmö
+  	 * http://www.labs.skanetrafiken.se/v2.2/querystation.asp?inpPointfr=malmÃ¶
   	 * More information
   	 * @param serachStart string to search for
   	 * @return list of stations that fulfils the search criteria. 
-  	 * Always returns a number of central stations like Malmö Copenhagen etc
+  	 * Always returns a number of central stations like MalmÃ¶ Copenhagen etc
   	 * */
 	public static List<Station> getStationsFromURL(String searchStart){
 		List<Station> foundStations = new ArrayList<Station>();
@@ -50,9 +50,9 @@ public class Parser {
 	}
 	
 	 /**
-  	 * Calls Skånetrafiken API and searches for departures from a certain station to another station
+  	 * Calls SkÃ¥netrafiken API and searches for departures from a certain station to another station
   	 * Use this URL to test from a browser:
-  	 * http://www.labs.skanetrafiken.se/v2.2/resultspage.asp?cmdaction=next&selPointFr=malmö%20C|80000|0&selPointTo=landskrona|82000|0&LastStart=2015-02-24 16:38
+  	 * http://www.labs.skanetrafiken.se/v2.2/resultspage.asp?cmdaction=next&selPointFr=malmÃ¶%20C|80000|0&selPointTo=landskrona|82000|0&LastStart=2015-02-24 16:38
   	 * More information
   	 * @param serachURL string to search for
   	 * @return a Jourenys object that contains information on journeys from a station to another specified station. 
@@ -135,8 +135,8 @@ public class Parser {
     }
 	
 	 /**
-  	 * Calls Skånetrafiken API and searches for nest departures from a certain station returns all lines leaving that station
-  	 * Use this Url to test from a browser from ubåtshallen:
+  	 * Calls SkÃ¥netrafiken API and searches for nest departures from a certain station returns all lines leaving that station
+  	 * Use this Url to test from a browser from ubÃ¥tshallen:
   	 * http://www.labs.skanetrafiken.se/v2.2/stationresults.asp?selPointFrKey=80046 
   	 * More information
   	 * @param Station departure station
@@ -149,6 +149,7 @@ public class Parser {
 		String lineNo;
 		Calendar depTime;
 		String depTimeDeviation;
+		String toStationName;
 		Lines lines = new Lines(station);
 		String xml = parser.getXmlFromUrl(searchURL); // getting XML
 		if (xml!=null){
@@ -160,7 +161,7 @@ public class Parser {
 				//Get the value for that tag "No"
 				lineNo = parser.getValue(e, "No"); 
 				if(debug){System.out.println("LineNo: "+ lineNo);} //For debugging.....
-				//Get the value for the tag "JourneyDateTime" //That is departuretime and date as String
+				//Get the value for the tag "JourneyDateTime" //That is departure time and date as String
 				String journeyDateTime = parser.getValue(e, "JourneyDateTime"); 
 				if(debug){System.out.println("JourneyDateTime: "+ journeyDateTime);}
 				//Convert the String to a Calendar object with a helper method written for this in the Helpers class
@@ -170,12 +171,15 @@ public class Parser {
 				if(debug){System.out.println("DepTimeDeviation: "+ depTimeDeviation);}
 				//Continue with all other elements in the Line node.......
 				//....
+				toStationName = parser.getValue(e, "Towards");
+				if(debug) {System.out.println("Towards: " + toStationName);}
 				
 				//Then we got one Line lets create a line object and add it to Lines
 				Line l = new Line();
 				l.setDepTime(depTime);
 				l.setLine(lineNo);
 				l.setDepTimeDeviation(depTimeDeviation);
+				l.setDestination(toStationName);
 				lines.addLine(l);
 				//Ok next Line element
 			}		
